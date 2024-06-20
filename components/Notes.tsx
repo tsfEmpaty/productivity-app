@@ -1,16 +1,7 @@
-// src/components/Notes.tsx
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  TextInput,
-  Button,
-  StyleSheet,
-  FlatList,
-  Text,
-} from "react-native";
+import { View, TextInput, Button, StyleSheet, FlatList } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Markdown from "react-native-markdown-display";
-import { Appbar } from "react-native-paper";
 
 interface Note {
   id: string;
@@ -81,12 +72,10 @@ const Notes: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Appbar.Header>
-        <Appbar.Content title="Notes" />
-      </Appbar.Header>
       <TextInput
         style={styles.input}
         placeholder="Write your note in Markdown..."
+        placeholderTextColor="#d8dee9"
         value={currentNote}
         onChangeText={setCurrentNote}
         multiline
@@ -100,7 +89,7 @@ const Notes: React.FC = () => {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.noteContainer}>
-            <Markdown>{item.content}</Markdown>
+            <Markdown style={markdownStyles}>{item.content}</Markdown>
             <View style={styles.noteButtons}>
               <Button title="Edit" onPress={() => handleEditNote(item.id)} />
               <Button
@@ -119,7 +108,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#2E3440",
   },
   input: {
     borderColor: "#ddd",
@@ -127,7 +116,8 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
     borderRadius: 5,
-    backgroundColor: "#fff",
+    backgroundColor: "#4C566A",
+    color: "#ECEFF4", // Белый цвет текста
   },
   noteContainer: {
     padding: 10,
@@ -141,5 +131,44 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+
+// Стили для Markdown
+const markdownStyles = {
+  body: {
+    color: "#ECEFF4", // Белый цвет текста для заметок
+  },
+  blockquote: {
+    backgroundColor: "#4C566A",
+    color: "#ECEFF4",
+    padding: 10,
+    borderRadius: 5,
+  },
+  code_block: {
+    backgroundColor: "#4C566A",
+    color: "#ECEFF4",
+    padding: 10,
+    borderRadius: 5,
+  },
+  code_inline: {
+    backgroundColor: "#4C566A",
+    color: "#ECEFF4",
+    padding: 5,
+    borderRadius: 5,
+  },
+  link: {
+    color: "#88C0D0", // Цвет ссылок
+  },
+  pre: {
+    backgroundColor: "#4C566A",
+    borderRadius: 5,
+    padding: 10,
+  },
+  fence: {
+    backgroundColor: "#4C566A",
+    color: "#ECEFF4",
+    borderRadius: 5,
+    padding: 10,
+  },
+};
 
 export default Notes;
